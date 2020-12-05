@@ -1,15 +1,18 @@
 use aocf::Aoc;
+use std::collections::HashSet;
+
+const MAX_ROW: usize = 127;
+const MAX_COL: usize = 7;
 
 fn get_seat_id(pass: &str) -> usize {
     let row = pass.chars()
         .take(7)
-        .fold((0, 127), wittle_down);
+        .fold((0, MAX_ROW), wittle_down);
 
     let col = pass.chars()
         .skip(7)
         .take(3)
-        .fold((0, 7), wittle_down);
-
+        .fold((0, MAX_COL), wittle_down);
 
     row.0 * 8 + col.0
 }
@@ -39,6 +42,18 @@ fn main() {
         // Part 1
         let max_seat_id = seat_ids.clone().max().unwrap();
         println!("{}", max_seat_id);
+
+        // Part 2
+        let min_seat_id = seat_ids.clone().min().unwrap();
+
+        let all_seat_ids: HashSet<_> = (0..(MAX_ROW * 8)).collect();
+        let taken_seats: HashSet<_> = seat_ids.collect();
+        
+        let diff: Vec<&usize> = all_seat_ids.difference(&taken_seats)
+            .filter(|d| **d > min_seat_id && **d < max_seat_id)
+            .collect();
+
+        println!("{:?}", diff);
     }
 }
 
