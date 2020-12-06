@@ -36,8 +36,8 @@ fn main() {
 
     let input = aoc.get_input(false);
 
-    if let Ok(i) = input {
-        let seat_ids = i.lines().map(get_seat_id);
+    if let Ok(input) = aoc.get_input(false) {
+        let seat_ids = input.lines().map(get_seat_id);
 
         // Part 1
         let max_seat_id = seat_ids.clone().max().unwrap();
