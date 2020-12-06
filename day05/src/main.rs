@@ -34,8 +34,6 @@ fn main() {
         .init()
         .unwrap();
 
-    let input = aoc.get_input(false);
-
     if let Ok(input) = aoc.get_input(false) {
         let seat_ids = input.lines().map(get_seat_id);
 
