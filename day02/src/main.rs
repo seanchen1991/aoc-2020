@@ -24,12 +24,30 @@ impl Policy {
         }
     }
 
-    fn complies(&self, pw: &str) -> bool {
+    fn check_part_one(&self, pw: &str) -> bool {
         let nletters = pw.chars()
             .filter(|c| *c == self.letter)
             .count();
 
         nletters >= self.start && nletters <= self.end
+    }
+
+    fn check_part_two(&self, pw: &str) -> bool {
+        let mut found = 0;
+
+        if let Some(letter) = pw.chars().nth(self.start - 1) {
+            if letter == self.letter {
+                found += 1;
+            }
+        }
+        
+        if let Some(letter) = pw.chars().nth(self.end - 1) {
+            if letter == self.letter {
+                found += 1;
+            }
+        }
+
+        found == 1
     }
 }
 
@@ -41,7 +59,23 @@ fn part_one(input: &str) -> usize {
             let password = parts[1];
             let policy = Policy::from_str(pol);
             
-            if policy.complies(password) {
+            if policy.check_part_one(password) {
+                acc += 1;
+            }     
+
+            acc
+        })
+}
+
+fn part_two(input: &str) -> usize {
+    input.lines()
+        .fold(0, |mut acc, line| {
+            let parts: Vec<&str> = line.split(": ").collect();
+            let pol = parts[0];
+            let password = parts[1];
+            let policy = Policy::from_str(pol);
+            
+            if policy.check_part_two(password) {
                 acc += 1;
             }     
 
@@ -58,6 +92,9 @@ fn main() {
 
     if let Ok(input) = aoc.get_input(false) {
         let answer = part_one(&input.trim());
+        println!("{}", answer);
+
+        let answer = part_two(&input.trim());
         println!("{}", answer);
     }
 }
