@@ -11,7 +11,7 @@ const MY_BAG: &str = "shiny gold";
 
 struct LuggageRule {
     outer_color: String,
-    contents: Vec<(u32, String)>
+    contents: Vec<(usize, String)>
 }
 
 impl LuggageRule {
@@ -32,7 +32,7 @@ impl LuggageRule {
             .map(|capture| {
                 (
                     capture["qty"]
-                        .parse::<u32>()
+                        .parse::<usize>()
                         .expect("regex guarantees positive integers"),
                     capture["color"].to_string(),
                 ) 
@@ -70,6 +70,42 @@ pub fn part_one(input: &str) -> usize {
     all_containers.len()
 }
 
-pub fn part_two(input: &str) -> usize {
-    0
+pub fn part_two(input: &str) -> u64 {
+    let mut cache: HashMap<String, u64> = HashMap::new();
+    let rules: HashMap<_, _> = LuggageRule::parse_input(input).into_iter()
+        .map(|rule| (rule.outer_color.clone(), rule))
+        .collect();
+
+    query_rules(&rules, MY_BAG, &mut cache)
 }
+
+fn query_rules(
+    rules: &HashMap<String, LuggageRule>,
+    color: &str,
+    cache: &mut HashMap<String, u64>,
+) -> u64 {
+    let mut quantity = 0_u64;
+    let rule = match rules.get(color) {
+        Some(rule) => rule,
+        None => return 0,
+    };
+
+    for (qty, color) in &rule.contents {
+        let qty = *qty as u64;
+        quantity += qty;
+
+        let per_color = match cache.get(color) {
+            Some(n) => *n,
+            None => query_rules(rules, color, cache)
+        };
+
+        quantity += qty * per_color;
+    }
+
+    cache.insert(color.to_string(), quantity);
+    
+    quantity
+}
+
+
+
