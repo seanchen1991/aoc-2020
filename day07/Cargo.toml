@@ -1,0 +1,13 @@
+[package]
+name = "day07"
+version = "0.1.0"
+authors = ["seanchen <skypemaster007@gmail.com>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+aocf = { git = "https://github.com/nuxeh/aocf" }
+lazy_static = "1.4.0"
+regex = "1.4.2"
+thiserror = "1.0.22"
