@@ -1,5 +1,10 @@
 use aocf::Aoc;
-use day08::part_one;
+use std::str::FromStr;
+use day08::{
+    vm::VM,
+    part_one, 
+    part_two
+};
 
 fn main() {
     let mut aoc = Aoc::new()
@@ -9,8 +14,13 @@ fn main() {
         .unwrap();
 
     if let Ok(input) = aoc.get_input(false) {
-        let answer = part_one(&input);
+        let mut vm = VM::from_str(&input).expect("Invalid set of instructions");
+
+        let (answer, _) = part_one(&mut vm.clone());
         println!("Part I: {}", answer);
+
+        let (answer, _) = part_two(&mut vm);
+        println!("Part II: {}", answer);
     }
 }
 

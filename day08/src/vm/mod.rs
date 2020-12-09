@@ -3,7 +3,7 @@ use std::num::ParseIntError;
 
 const SPLIT_INDEX: usize = 4;
 
-#[derive(Debug, PartialEq, Clone)]
+#[derive(Debug, PartialEq, Clone, Copy)]
 pub enum Instruction {
     NOP,
     ACC(i32),
