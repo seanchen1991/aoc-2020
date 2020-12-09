@@ -8,5 +8,3 @@ mkdir "$directory"
 
 cp -r template/ "$directory"
 
-rm "$directory"/Cargo.lock
-
