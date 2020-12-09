@@ -31,6 +31,5 @@ pub fn part_two(vm: &VM) -> (i32, bool) {
         })
         .find(|(_, looped)| !*looped)
         .expect("No fix found for the infinite loop")
-
 }
 
