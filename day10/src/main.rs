@@ -1,5 +1,5 @@
 use aocf::Aoc;
-use day10::part_one;
+use day10::{part_one, part_two};
 
 fn main() {
     let mut aoc = Aoc::new()
@@ -9,11 +9,19 @@ fn main() {
         .unwrap();
 
     if let Ok(input) = aoc.get_input(false) {
-        let joltages: Vec<u32> = input.lines()
+        let mut joltages: Vec<usize> = input.lines()
             .map(|line| line.parse().expect("Failed to parse a line of input"))
             .collect();
 
+        joltages.push(0);
+        joltages.sort();
+        joltages.push(joltages.last().unwrap() + 3);
+
         let answer = part_one(&joltages);
         println!("Part I: {}", answer);
+
+        let answer = part_two(&joltages);
+        println!("Part II: {}", answer);
     }
 }
+
