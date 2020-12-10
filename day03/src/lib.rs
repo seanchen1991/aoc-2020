@@ -14,3 +14,8 @@ pub fn part_one(map: &[Vec<char>], slope: (usize, usize)) -> u32 {
     trees_hit
 }
 
+pub fn part_two(map: &[Vec<char>]) -> u32 {
+    [(1, 1), (3, 1), (5, 1), (7, 1), (1, 2)].iter()
+        .map(|slope| part_one(&map, *slope)).product()
+}
+

@@ -1,5 +1,5 @@
 use aocf::Aoc;
-use day03::part_one;
+use day03::{part_one, part_two};
 
 fn main() {
     let mut aoc = Aoc::new()
@@ -15,5 +15,8 @@ fn main() {
 
         let answer = part_one(&map, (3, 1));
         println!("Part I: {}", answer);
+
+        let answer = part_two(&map);
+        println!("Part II: {}", answer);
     }
 }
