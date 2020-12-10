@@ -1,4 +1,5 @@
 use aocf::Aoc;
+use day09::part_one;
 
 fn main() {
     let mut aoc = Aoc::new()
@@ -8,6 +9,7 @@ fn main() {
         .unwrap();
 
     if let Ok(input) = aoc.get_input(false) {
-        println!("{}", input);
+        let answer = part_one(&input);
+        println!("{}", answer);
     }
 }
