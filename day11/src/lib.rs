@@ -52,7 +52,6 @@ impl Layout {
             let nw = self.seats[row-1][col-1];
             taken += if nw == Seat::Taken { 1 } else { 0 };
         }
-        
 
         if row > 0 && col < self.width - 1 {
             let ne = self.seats[row-1][col+1];

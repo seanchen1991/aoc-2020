@@ -8,3 +8,7 @@ mkdir "$directory"
 
 cp -r template/ "$directory"
 
+cd "$directory"
+
+cargo clean
+
